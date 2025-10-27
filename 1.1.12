@@ -1,0 +1,35 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int count = 0;
+int isSafe(int row, int col, int pos[]){
+	for(int i = 0;i< row;i++){
+		if(pos[i] == col || abs(pos[i] - col) == abs(i - row))
+			return 0;
+	}
+	return 1;
+}
+void solve(int n, int row, int pos[]){
+	if(row == n){
+		count++;
+		return;
+	}
+	for(int col = 0; col <n;col++){
+		if(isSafe(row,col,pos)){
+			pos[row] = col;
+			solve(n,row + 1,pos);
+		}
+	}
+}
+int nQueen(int n){
+	count = 0;
+	int pos[10];
+	solve(n,0,pos);
+	return count;
+}
+int main(){
+	int n;
+	scanf("%d",&n);
+	printf("%d\n",nQueen(n));
+	return 0;
+}
